@@ -1,7 +1,19 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "users")
 public class User {
@@ -10,39 +22,30 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name cannot be blank")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
+
+    @NotNull(message = "Age is required")
+    @Min(value = 18, message = "Age must be at least 18")
+    @Max(value = 60, message = "Age cannot be above 60")
+    private Integer age;
+
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email is required")
+    @Column(unique = true)
     private String email;
 
-    // Constructors
-    public User() {}
+    @NotBlank(message = "Mobile number is required")
+    @Size(min = 10, max = 10, message = "Mobile number must be 10 digits")
+    @Column(unique = true)
+    private String mobile;
 
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
+    private Boolean isActive = true;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }

@@ -8,7 +8,7 @@ public class SpringBootPracticeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootPracticeApplication.class, args);
-		System.out.println("Hello");
+		System.out.println("---------- Application Started Successfully! All systems ready ----------");
 	}
 
 //    com.example.demo
