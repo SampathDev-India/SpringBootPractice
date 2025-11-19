@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.User;
+import com.example.demo.Entity.Address;
+import com.example.demo.Entity.User;
 
 import java.util.List;
 

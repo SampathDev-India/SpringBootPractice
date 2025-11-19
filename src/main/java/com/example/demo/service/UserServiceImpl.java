@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.Exception.ResourceNotFoundException;
-import com.example.demo.model.User;
+import com.example.demo.Entity.User;
 import com.example.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+
         return userRepository.save(user);
     }
 
@@ -25,12 +27,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+//    @Cacheable(value = "users", key = "#id")
     @Override
     public User getUserById(Long id) {
+        System.out.println("Fetching from DB...");
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
     }
 
+//    @CachePut(value = "users", key = "#user.id")
     @Override
     @Transactional
     public User updateUser(Long id, User userDetails) {
@@ -49,6 +54,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(existingUser);
     }
 
+//    @CacheEvict(value = "users", key = "#id")
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
@@ -58,27 +64,5 @@ public class UserServiceImpl implements UserService {
     public void deleteAllUsers() {
         userRepository.deleteAll();
     }
-
-
-//    @Override
-//    public User findByUserName(String userName) {
-//        return userRepository.findByUsername(userName);
-//    }
-//
-//    @Override
-//    public List<User> findByAgeEquals(int age) {
-//        return userRepository.findByAgeEquals(age);
-//    }
-//
-//    @Override
-//    public User findByEmailContaining(String email) {
-//        return userRepository.findByEmailContaining(email);
-//    }
-//
-//    @Override
-//    public List<User> findUserByUsername(String userName) {
-//        return userRepository.findUserByUsername( userName);
-//    }
-
 
 }

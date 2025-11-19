@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.User;
+import com.example.demo.Entity.Address;
+import com.example.demo.Entity.User;
 import com.example.demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +55,14 @@ public class UserController {
     public ResponseEntity<String> deleteUser() {
         userService.deleteAllUsers();
         return ResponseEntity.ok("All Users deleted successfully");
+    }
+
+    @GetMapping("/{id}/addresses")
+    public  ResponseEntity<List<Address>> getAddressById(@PathVariable Long id){
+        User user =userService.getUserById(id);
+        List<Address> addresses = user.getAddresses();
+
+        return ResponseEntity.status(HttpStatus.OK).body(addresses);
     }
 
 

@@ -1,6 +1,5 @@
-package com.example.demo.model;
+package com.example.demo.Entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -8,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Getter
 @Setter
@@ -42,6 +42,15 @@ public class User {
     private String mobile;
 
     private Boolean isActive = true;
+
+    /**
+     * OneToMany
+     * User is parent
+     * while fetching the user details it will fetch the all the details of address
+     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses = new ArrayList<>();
+
 
     @CreationTimestamp
     private LocalDateTime createdAt;
