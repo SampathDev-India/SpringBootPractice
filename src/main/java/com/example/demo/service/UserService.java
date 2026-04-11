@@ -18,12 +18,4 @@ public interface UserService {
     void deleteUser(Long id);
 
     void deleteAllUsers();
-
-//    User findByUsername(String name);
-
-//    List<User> findByAgeEquals(int age);
-//
-//    User findByEmailContaining(String email);
-//
-//    List<User> findUserByUsername(String userName);
 }

@@ -11,6 +11,7 @@ public class SpringBootPracticeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootPracticeApplication.class, args);
 		System.out.println("---------- Application Started Successfully! All systems ready ----------");
+		System.out.println("---------- http://localhost:8080/swagger-ui/index.html ----------");
 	}
 
 //    com.example.demo
